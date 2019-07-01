@@ -7,6 +7,8 @@
 //
 
 import UIKit
+// 3d2c5e53e7a06856804df18e21e74898
+//https://api.openweathermap.org/data/2.5/weather?q=London&appid=3d2c5e53e7a06856804df18e21e74898&units=imperial
 
 class ViewController: UIViewController {
     
@@ -14,6 +16,53 @@ class ViewController: UIViewController {
     
     
     @IBAction func didTapGo(){
+        
+        
+        // have to guard if they dont type in a city
+        guard cityTextField.text?.isEmpty == false else{return}
+        
+        
+        //base url
+        var components = URLComponents(string: "https://api.openweathermap.org/data/2.5/weather")
+        // We're gonna make 3 components for the rem sectios in the URL
+        let cityQuery = URLQueryItem(name: "q", value: cityTextField.text)
+        let appIdQuery = URLQueryItem(name: "appid", value: "3d2c5e53e7a06856804df18e21e74898")
+        
+        let unitsQuery = URLQueryItem(name: "units", value: "imperial")
+        
+        
+        // now were gonna chop up the url and paste them in we have to make an array to loop
+        components?.queryItems = [cityQuery,appIdQuery,unitsQuery]
+        //unwraping
+        guard let url = components?.url else {return}
+        // networking request
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: url) { (data, _, error) in
+            if let error = error{
+                print(error)
+            }
+                else if let data = data {
+                    do{
+//                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+//                        print(json)
+                        
+                        //decodable way
+                        let weatherReport = try JSONDecoder().decode(WeatherReport.self, from: data)
+                        print(weatherReport)
+                        
+                        
+                    }
+                    catch{
+                        print(error)
+                    }
+                }
+            }
+    
+        // use datatask after teh closure
+        dataTask.resume()
+        
+        // to make sense of the weather report we have to create a struct or class to give it obejects to commincate with the next page
+        
         
         performSegue(withIdentifier: "segue.Main.enterCityToWeather", sender: nil)
         
