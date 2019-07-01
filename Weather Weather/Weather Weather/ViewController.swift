@@ -9,12 +9,22 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    
+    @IBOutlet weak var cityTextField: UITextField!
+    
+    
+    @IBAction func didTapGo(){
+        
+        performSegue(withIdentifier: "segue.Main.enterCityToWeather", sender: nil)
+        
     }
-
+    
+    @IBAction func returnToMainVC(_ sender: UIStoryboardSegue){
+        
+        
+    }
+    
+  
 
 }
 
