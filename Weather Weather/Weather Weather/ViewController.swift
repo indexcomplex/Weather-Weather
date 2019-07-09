@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     
     @IBAction func didTapGo(){
         
-        
         // have to guard if they dont type in a city
         guard cityTextField.text?.isEmpty == false else{return}
         
@@ -48,8 +47,10 @@ class ViewController: UIViewController {
                         
                         //decodable way
                         let weatherReport = try JSONDecoder().decode(WeatherReport.self, from: data)
-                        print(weatherReport)
+                        // more more print since we are passing it below
+                        //print(weatherReport)
                         
+                        self.performSegue(withIdentifier: "segue.Main.enterCityToWeather", sender: weatherReport)
                         
                     }
                     catch{
@@ -62,18 +63,21 @@ class ViewController: UIViewController {
         dataTask.resume()
         
         // to make sense of the weather report we have to create a struct or class to give it obejects to commincate with the next page
+   
+    }
+    @IBAction func returnToMainVC(_ sender: UIStoryboardSegue){}
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
         
+        // we need to check for destinated to make sure we can pass data
+        if let weatherVC = segue.destination as? WeatherVC, let weatherReport = sender as? WeatherReport {
+            weatherVC.weatherReport =  weatherReport
+        }
         
-        performSegue(withIdentifier: "segue.Main.enterCityToWeather", sender: nil)
         
     }
     
-    @IBAction func returnToMainVC(_ sender: UIStoryboardSegue){
-        
-        
-    }
-    
-  
 
 }
 

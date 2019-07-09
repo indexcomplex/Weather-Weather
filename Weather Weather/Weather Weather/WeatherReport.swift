@@ -25,30 +25,8 @@ struct WeatherReport: Decodable{
     
 }
 
-struct WeatherBreakdown: Decodable{
-    
-    let temperature: Double
-    
-    
-    private enum CodingKeys: String, CodingKey{
-        case temperature = "temp"
-        
-        
-        
-    }
-    
-}
 
-struct WeatherCondition: Decodable{
-    
-    let id: Int
-    let description: String
-    // no private enums bc they're already named something we like
-    
-    
-    
-    
-}
+
 
 
 

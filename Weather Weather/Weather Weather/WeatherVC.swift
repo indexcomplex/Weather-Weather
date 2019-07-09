@@ -16,17 +16,19 @@ class WeatherVC: UIViewController {
     @IBOutlet weak var temperatureLabel:UILabel!
     @IBOutlet weak var descriptionLabel:UILabel!
     
-    
+    var weatherReport: WeatherReport!
     
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // now that we have a weather object we have to make sure its unwrapped
         
+        guard let weatherReport = weatherReport else {return}
         
-        
-
+        cityLabel.text = weatherReport.city
+        temperatureLabel.text = String(weatherReport.breakdown.temperature)
        
     }
     
