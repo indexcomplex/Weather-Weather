@@ -45,12 +45,18 @@ class ViewController: UIViewController {
 //                        let json = try JSONSerialization.jsonObject(with: data, options: [])
 //                        print(json)
                         
+                        
                         //decodable way
                         let weatherReport = try JSONDecoder().decode(WeatherReport.self, from: data)
                         // more more print since we are passing it below
                         //print(weatherReport)
                         
-                        self.performSegue(withIdentifier: "segue.Main.enterCityToWeather", sender: weatherReport)
+                        DispatchQueue.main.async {
+                                  self.performSegue(withIdentifier: "segue.Main.enterCityToWeather", sender: weatherReport)
+                        }
+                        
+                        
+                    
                         
                     }
                     catch{

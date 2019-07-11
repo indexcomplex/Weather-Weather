@@ -28,8 +28,11 @@ class WeatherVC: UIViewController {
         guard let weatherReport = weatherReport else {return}
         
         cityLabel.text = weatherReport.city
-        temperatureLabel.text = String(weatherReport.breakdown.temperature)
-       
+        temperatureLabel.text = weatherReport.degreesFahrenheit
+        descriptionLabel.text = weatherReport.conditions.first?.description
+        weatherImage.image = weatherReport.conditionImage
+        
+        
     }
     
 
